@@ -1,0 +1,84 @@
+
+package com.betrybe.sistemadevotacao;
+
+import java.util.Scanner;
+
+public class Principal {
+  /**
+   * Classe main.
+   */
+  public static void main(String[] args) {
+    GerenciamentoVotacao gerenciamentoVotacao = new GerenciamentoVotacao();
+    Scanner scanner = new Scanner(System.in);
+
+    int opcao = 0;
+
+    // Etapa de cadastro de pessoas candidatas
+    while (opcao != 2) {
+      System.out.println("Cadastrar pessoa candidata?");
+      System.out.println("1 - Sim");
+      System.out.println("2 - Não");
+      System.out.print("Entre com o número correspondente à opção desejada:");
+      opcao = scanner.nextInt();
+//      scanner.nextLine(); // Limpar o buffer do scanner
+
+      if (opcao == 1) {
+        System.out.print("Entre com o nome da pessoa candidata:");
+        String nome = scanner.next();
+        System.out.print("Entre com o número da pessoa candidata:");
+        short numero = scanner.nextShort();
+        scanner.next(); // Limpar o buffer do scanner
+
+        gerenciamentoVotacao.cadastrarPessoaCandidata(nome, numero);
+      }
+    }
+
+    opcao = 0;
+
+    // Etapa de cadastro de pessoas eleitoras
+    while (opcao != 2) {
+      System.out.println("Cadastrar pessoa eleitora?");
+      System.out.println("1 - Sim");
+      System.out.println("2 - Não");
+      System.out.print("Entre com o número correspondente à opção desejada:");
+      opcao = scanner.nextShort();
+      scanner.nextLine(); // Limpar o buffer do scanner
+
+      if (opcao == 1) {
+        System.out.print("Entre com o nome da pessoa eleitora:");
+        String nome = scanner.next();
+        System.out.print("Entre com o CPF da pessoa eleitora:");
+        String cpf = scanner.next();
+
+        gerenciamentoVotacao.cadastrarPessoaEleitora(nome, cpf);
+      }
+    }
+
+    opcao = 0;
+
+    // Etapa de votação
+    while (opcao != 3) {
+      System.out.println("Entre com o número correspondente à opção desejada:");
+      System.out.println("1 - Votar");
+      System.out.println("2 - Resultado Parcial");
+      System.out.println("3 - Finalizar Votação");
+      System.out.print("Opção:");
+      opcao = scanner.nextShort();
+      scanner.nextLine(); // Limpar o buffer do scanner
+
+      if (opcao == 1) {
+        System.out.print("Entre com o CPF da pessoa eleitora:");
+        String cpfEleitora = scanner.next();
+        System.out.print("Entre com o número da pessoa candidata:");
+        int numeroCandidata = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer do scanner
+
+        gerenciamentoVotacao.votar(cpfEleitora, numeroCandidata);
+      } else if (opcao == 2 || opcao == 3) {
+        gerenciamentoVotacao.mostrarResultado();
+      }
+    }
+
+    scanner.close();
+  }
+}
